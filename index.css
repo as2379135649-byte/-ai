@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --canvas-bg: #16130F;
+  --card-bg: #1D1A14;
+  --card-hover: #252119;
+  --accent: #F2C14E;
+  --accent-hover: #F5CB5E;
+  --accent-dim: rgba(242, 193, 78, 0.12);
+  --accent-secondary: #D97B3A;
+  --text-primary: #EEE4CE;
+  --text-secondary: #96836F;
+  --text-muted: #5C4E3E;
+  --border-subtle: rgba(242, 193, 78, 0.1);
+  --border-default: rgba(242, 193, 78, 0.2);
+  --border-hover: rgba(242, 193, 78, 0.45);
+  --canvas-arrow-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 28 32'%3E%3Cpath d='M3 2.5v22.3l6.1-5.4 4.2 9.7 4.4-1.9-4.2-9.4h8.4L3 2.5Z' fill='%23110F0C' stroke='%23FFFFFF' stroke-width='1.7' stroke-linejoin='round'/%3E%3C/svg%3E") 3 3, default;
+}
+
+/* ReactFlow canvas */
+.react-flow__renderer,
+.react-flow__background,
+.react-flow__pane {
+  background: var(--canvas-bg) !important;
+  cursor: var(--canvas-arrow-cursor) !important;
+}
+
+/* Task cards use a grab cursor while form controls keep their native feedback. */
+.canvas-task-card {
+  cursor: grab;
+}
+.react-flow__node.dragging .canvas-task-card,
+.canvas-task-card:active {
+  cursor: grabbing;
+}
+.canvas-task-card button:not(:disabled),
+.canvas-task-card a,
+.canvas-task-card select:not(:disabled) {
+  cursor: pointer;
+}
+.canvas-task-card input:not([type='range']):not(:disabled),
+.canvas-task-card textarea:not(:disabled) {
+  cursor: text;
+}
+.canvas-task-card input[type='range']:not(:disabled) {
+  cursor: ew-resize;
+}
+.canvas-task-card button:disabled,
+.canvas-task-card input:disabled,
+.canvas-task-card select:disabled,
+.canvas-task-card textarea:disabled {
+  cursor: not-allowed;
+}
+.canvas-task-card .react-flow__handle {
+  cursor: crosshair;
+}
+
+/* ReactFlow edges — golden amber */
+.react-flow__edge-path {
+  stroke: rgba(242, 193, 78, 0.82);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 3px rgba(242, 193, 78, 0.28));
+  transition: stroke 160ms ease, stroke-width 160ms ease, filter 160ms ease;
+}
+.react-flow__edge.selected .react-flow__edge-path,
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: #F2C14E;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px rgba(242, 193, 78, 0.65));
+}
+.react-flow__edge-interaction {
+  stroke-width: 28 !important;
+}
+.react-flow__connection-path {
+  stroke: #F2C14E !important;
+  stroke-width: 3 !important;
+}
+.react-flow__connection-line {
+  stroke: #F2C14E !important;
+  stroke-width: 3 !important;
+}
+
+@keyframes canvas-edge-confirm-pulse {
+  0% {
+    stroke: #FFF2B8;
+    stroke-width: 6;
+    stroke-dasharray: 4 8;
+    stroke-dashoffset: 24;
+    filter: drop-shadow(0 0 12px rgba(242, 193, 78, 0.95));
+  }
+  55% {
+    stroke: #F2C14E;
+    stroke-width: 4.5;
+    stroke-dasharray: 12 5;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke: rgba(242, 193, 78, 0.82);
+    stroke-width: 3;
+    stroke-dasharray: 0;
+    filter: drop-shadow(0 0 3px rgba(242, 193, 78, 0.28));
+  }
+}
+
+.canvas-edge-confirmed {
+  animation: canvas-edge-confirm-pulse 1.35s ease-out both;
+}
+
+/* ReactFlow controls */
+.react-flow__controls {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+}
+.react-flow__controls button {
+  background: transparent !important;
+  border-color: var(--border-subtle) !important;
+  color: var(--text-secondary) !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+.react-flow__controls button:hover {
+  background: var(--accent-dim) !important;
+  color: var(--accent) !important;
+}
+.react-flow__controls button svg {
+  fill: currentColor !important;
+}
+
+/* ReactFlow minimap */
+.react-flow__minimap {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+.react-flow__minimap-mask {
+  fill: rgba(22, 19, 15, 0.7) !important;
+}
+
+/* Selection box */
+.react-flow__selection {
+  background: rgba(242, 193, 78, 0.05) !important;
+  border: 1px solid rgba(242, 193, 78, 0.4) !important;
+}
+.react-flow__nodesselection-rect {
+  background: rgba(242, 193, 78, 0.05) !important;
+  border: 1px dashed rgba(242, 193, 78, 0.4) !important;
+}
+
+/* Canvas connection handles */
+.react-flow__handle {
+  border-width: 2px !important;
+}
+.canvas-connection-handle {
+  width: 12px !important;
+  height: 28px !important;
+  border-radius: 6px !important;
+  box-shadow:
+    0 0 0 3px rgba(22, 19, 15, 0.82),
+    0 0 0 5px rgba(242, 193, 78, 0.2),
+    0 0 12px rgba(242, 193, 78, 0.4);
+  transition: width 150ms ease, height 150ms ease, box-shadow 150ms ease, opacity 150ms ease !important;
+}
+.canvas-connection-handle:hover,
+.canvas-connection-handle.connectingfrom,
+.canvas-connection-handle.connectingto,
+.canvas-connection-handle.valid {
+  width: 14px !important;
+  height: 34px !important;
+  border-radius: 7px !important;
+  box-shadow:
+    0 0 0 3px rgba(22, 19, 15, 0.9),
+    0 0 0 6px rgba(242, 193, 78, 0.32),
+    0 0 18px rgba(242, 193, 78, 0.78);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--canvas-bg); }
+::-webkit-scrollbar-thumb { background: rgba(242,193,78,0.2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(242,193,78,0.4); }
